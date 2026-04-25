@@ -1,0 +1,54 @@
+DESCRIPTION OF DATASET
+
+The dataset for model training has been downloaded from Kaggle
+Source link :  https://www.kaggle.com/datasets/noorsaeed/medicine-recommendation-system-dataset
+This dataset records a multitude (132) sympotms seen in patients and also maps them to the diseases that were identified for occurrence of certain pattern of symptoms.
+Moreover this dataset provides us with the following information :
++ Maps Symptoms -> Diseases
++ Maps Diseases -> Medication
++ Maps Diseases -> Workout Suggested
++ Maps Diseases -> Precautionary Habbits suggested to be adopted
++ Maps Diseases -> Diet suggested 
++ Maps Diseases -> Disease's description in detail for user's comprehensibility
+
+
+
+
+
+DESCRIPTION OF MODELS
+
+First Module — Diagnosis Module
+
+It employs Artificial Neural Network (ANN) that uses symptoms and their
+corresponding diagnosed disease provided in 'Training.csv'. It then learns
+the patterns among different symptoms and uses the learned weights to predict
+the disease based upon the symptoms provided by user.
+
+  - It has 3 feed forward layers
+  - It employs 2 dropout layers with certain probabilities to prevent overfitting
+  - The module also exhibits graphs for learning curves to exhibit the progress
+    of ANN
+
+Second Module — Severity Prediction
+
+It employs a Linear Regression Model (LR). The severity column is calculated
+prior to training given by the formula:
+
+    Summation(weight_of_found_symptoms) * Disease_severity
+
+Severity of disease prepared based on expert's opinion.
+It uses dataset 'Symptom-Severity.csv'.
+
+  - LR learns weight of each feature from the given dataset
+  - It then uses these weights to predict severity of module
+  - Boxplot is then used to display the dispersion of severity values
+  - A polar Bar graph has been used to visualize importance of each feature
+    in severity calculation
+
+
+Third Module — Prescription For the Patient
+
+It will employ a Genetic Algorithm that will combine datasets of
+'description.csv', 'diets.csv', 'medications.csv', 'precautions_df.csv' and
+'workout_df.csv' as genes of chromosomes and then suggest to a patient the
+best combination of all these prescriptions.
