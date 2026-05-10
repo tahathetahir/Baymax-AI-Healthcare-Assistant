@@ -1,23 +1,38 @@
 DESCRIPTION OF DATASET
 
-The dataset for model training has been downloaded from Kaggle
-Source link :  https://www.kaggle.com/datasets/noorsaeed/medicine-recommendation-system-dataset
-This dataset records a multitude (132) sympotms seen in patients and also maps them to the diseases that were identified for occurrence of certain pattern of symptoms.
-Moreover this dataset provides us with the following information :
-+ Maps Symptoms -> Diseases
-+ Maps Diseases -> Medication
-+ Maps Diseases -> Workout Suggested
-+ Maps Diseases -> Precautionary Habbits suggested to be adopted
-+ Maps Diseases -> Diet suggested 
-+ Maps Diseases -> Disease's description in detail for user's comprehensibility
 
+The dataset for model training has been downloaded from Kaggle.
+Source link : https://www.kaggle.com/datasets/noorsaeed/medicine-recommendation-system-dataset
 
+This dataset records a multitude (132) symptoms seen in patients and also maps
+them to the diseases that were identified for occurrence of certain pattern of
+symptoms. Moreover this dataset provides us with the following information:
+
+  + Maps Symptoms   -> Diseases
+  + Maps Diseases   -> Medication
+  + Maps Diseases   -> Workout Suggested
+  + Maps Diseases   -> Precautionary Habits suggested to be adopted
+  + Maps Diseases   -> Diet suggested
+  + Maps Diseases   -> Disease's description in detail for user's comprehensibility
 
 
 
 DESCRIPTION OF MODELS
 
+
 First Module — Diagnosis Module
+
+
+Why ANN is best suited:
+The dataset contains 132 binary symptom features mapped to 41 disease classes,
+forming a high-dimensional, non-linear classification problem. Traditional models
+like Decision Trees or naive Bayes struggle to capture complex co-occurrence
+patterns among symptoms. ANN is best suited here because its multiple hidden
+layers can learn hierarchical symptom relationships — for example, recognising
+that fatigue + yellowing of eyes + dark urine together point to hepatitis, even
+when each symptom individually appears across many diseases. Furthermore, the
+dataset is perfectly balanced (120 samples per class), which is ideal for ANN
+training as it eliminates class bias during backpropagation.
 
 It employs Artificial Neural Network (ANN) that uses symptoms and their
 corresponding diagnosed disease provided in 'Training.csv'. It then learns
@@ -29,7 +44,22 @@ the disease based upon the symptoms provided by user.
   - The module also exhibits graphs for learning curves to exhibit the progress
     of ANN
 
+
+
 Second Module — Severity Prediction
+
+
+Why Linear Regression is best suited:
+The severity target variable is a continuous numeric score derived from symptom
+weights and disease danger indices — a naturally linear-friendly output space.
+Linear Regression is best suited here because it not only predicts the severity
+score but also produces interpretable coefficients for each of the 132 symptom
+features, revealing which symptoms contribute most to driving severity upward.
+This explainability is critical in a medical context where predictions must be
+justifiable. Additionally, since the dataset has genuine variability in symptom
+combinations across rows of the same disease, LR must generalise across different
+symptom loads rather than simply memorising outputs — making it a meaningful
+and honest regression task.
 
 It employs a Linear Regression Model (LR). The severity column is calculated
 prior to training given by the formula:
@@ -40,13 +70,26 @@ Severity of disease prepared based on expert's opinion.
 It uses dataset 'Symptom-Severity.csv'.
 
   - LR learns weight of each feature from the given dataset
-  - It then uses these weights to predict severity of module
+  - It then uses these weights to predict severity of the disease
   - Boxplot is then used to display the dispersion of severity values
   - A polar Bar graph has been used to visualize importance of each feature
     in severity calculation
 
 
 Third Module — Prescription For the Patient
+
+
+Why Genetic Algorithm is best suited:
+The prescription problem is a combinatorial optimisation problem — the system
+must select the best combination of diet, medication, workout, and precautions
+from multiple datasets simultaneously. There is no single correct answer; instead
+there is a solution space of many valid combinations that must be evaluated and
+ranked. Genetic Algorithm is best suited here because it naturally handles
+multi-objective optimisation across large combinatorial spaces without requiring
+the problem to be differentiable or convex. By encoding each prescription source
+(description, diets, medications, precautions, workout) as genes within a
+chromosome, the GA can evolve increasingly optimal prescription bundles across
+generations — something a simple lookup or rule-based system cannot do.
 
 It will employ a Genetic Algorithm that will combine datasets of
 'description.csv', 'diets.csv', 'medications.csv', 'precautions_df.csv' and
